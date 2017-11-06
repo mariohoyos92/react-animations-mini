@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from './Card';
 import './App.css';
+import {TransitionMotion, spring} from 'react-motion';
 
 
 export default class App extends Component {
@@ -58,12 +59,6 @@ export default class App extends Component {
 
     render() {
 
-        const todos = this.state.todos.map( (todo, i) => {
-            return <Card 
-                        key={i}
-                        toggle={ this.toggle }
-                        removeTodo={ this.removeTodo } 
-                        todo={ todo } /> 
         })
 
         return(
@@ -80,9 +75,16 @@ export default class App extends Component {
                                 /> 
                         </form>   
                     </div>
+                    <TransitionMotion>
                     <div>
-                        { todos }
-                    </div>  
+                    {this.state.todos.map( (todo, i) => {
+                        return <Card 
+                            key={i}
+                            toggle={ this.toggle }
+                            removeTodo={ this.removeTodo } 
+                            todo={ todo } />})}
+                    </div>
+                    </TransitionMotion>  
                 </div> 
             </div> 
         )
